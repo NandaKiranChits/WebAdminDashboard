@@ -26,6 +26,8 @@ import AddNewCustomer from "views/admin/AddNewCustomer/index.js";
 import AddNewMemberToGroup from "views/admin/AddMemberToGroup/index.js";
 import AddNewPayment from "views/admin/AddNewPayment/index.js";
 
+import AddTicketToGroup from "views/admin/AddMemberToGroup/index.js";
+
 export default function Admin() {
   return (
     <>
@@ -47,6 +49,7 @@ export default function Admin() {
             <Route path="/admin/dailyCollection" exact component={DailyCollection} />
             <Route path="/admin/addNewMemberToGroup" exact component={AddNewMemberToGroup} />
             <Route path="/admin/addNewPayment" exact component={AddNewPayment} />
+            <Route path="/admin/addTicketToGroup" exact component={AddTicketToGroup} />
             <Redirect from="/admin" to="/admin/dashboard" />
           </Switch>
           <FooterAdmin />

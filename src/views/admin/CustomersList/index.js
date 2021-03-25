@@ -2,6 +2,8 @@ import React from "react";
 
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
 import CustomHeaderStats from "components/Headers/CustomHeaderStats.js";
+import SelectDates from './SelectDates';
+import SearchInput from "./SearchInput";
 
 // components
 
@@ -32,14 +34,11 @@ export default function CustomerList() {
   );
 }
 
+
+
 const CustomerListContent = () =>{
     return (<div className="flex flex-wrap mt-4">
-       <div className="w-full lg:w-4/12 px-4">
-              <SelectDate placeholder="Start date" onchange={(val)=>{console.log(val)}}/>
-      </div>
-      <div className="w-full lg:w-4/12 px-2">
-        <SelectDate placeholder="End date" onchange={(val)=>{console.log(val)}}/>
-      </div>
+      <SelectDates />
       <div className="w-full lg:w-4/12 px-4">
         <SearchInput/>
       </div>
@@ -49,25 +48,8 @@ const CustomerListContent = () =>{
   </div>);
 }
 
-const SearchInput = () =>{
-  return (
-    <div class="relative flex w-full flex-wrap items-stretch mb-3">
-      <input type="text" placeholder="Search" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full pr-10"/>
-      <span class="z-10 h-full leading-snug font-normal absolute text-center text-blueGray-300 absolute bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3">
-        <i class="fas fa-search"></i>
-      </span>
-    </div>
-  )
-}
 
-const SelectDate = ({placeholder,onchange}) =>{
 
-  return (
-    <div class="mb-3 pt-0">
-      <input placeholder={placeholder} type="text" onChange={(e)=>(onchange(e.target.value))} onFocus={(e)=>e.target.type='date'}  class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full"/>
-    </div>
-  )
-}
 
 
   

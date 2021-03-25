@@ -2,33 +2,40 @@ import CustomDropDownChildWidget from '../../CustomDropDownChildWidget';
 
 import CustomTable from '../../CustomTable';
 import {Link} from 'react-router-dom';
+import {view} from '@risingstack/react-easy-state';
+import customerStore from './customerStore';
 
-export default function PaymentDetailsTable({ color }) {
+export default view(()=> {
+    var customerData = [];
+
+    customerStore.view_data.forEach((cust)=>{
+      customerData.push([
+          cust.phone,
+          cust.name,
+          cust.phone2,
+          cust.email,
+          cust.no_of_tickets,
+          <DropDown />
+      ]);
+    })
     return (
       <>
-        <CustomTable 
+      {
+        customerStore.isLoading &&
+        <p>Loading...</p>
+      }
+      {
+          (!customerStore.isLoading) &&
+          <CustomTable 
             tableName = {"Customer List"}
             color= {"light"}
-            rows = {["Cust ID","Name","Phone","Email","No of Tickets",""]}
-            values = {
-              [[121,
-                "Vinay P",
-              "9019301344","vinayrasal7@gmail.com","1",<DropDown />],
-              [121,
-                "Vinay P",
-              "9019301344","vinayrasal7@gmail.com","1",<DropDown />],
-              [121,
-                "Vinay P",
-              "9019301344","vinayrasal7@gmail.com","1",<DropDown />],
-              [121,
-                "Vinay P",
-              "9019301344","vinayrasal7@gmail.com","1",<DropDown />]
-                ]
-            }
-        />
+            rows = {["Cust ID","Name","Phone2","Email","No of Tickets",""]}
+            values = {customerData}
+          />
+        }
       </>
     );
-  }
+  })
 
 
   function DropDown(){
@@ -37,7 +44,7 @@ export default function PaymentDetailsTable({ color }) {
           dropDownItems={
             [
               <OnClickWidget name="View" route="/admin/groupView"/>,
-              <OnClickWidget name="Add Ticket" route="/admin/groupView"/>
+              <OnClickWidget name="Add Ticket" route="/admin/addTicketToGroup"/>
             ] 
           }
       />
