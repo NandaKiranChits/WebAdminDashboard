@@ -44,7 +44,7 @@ export default view(()=> {
           dropDownItems={
             [
               <OnClickWidget name="View" route="/admin/groupView"/>,
-              <OnClickWidget name="Add Ticket" route="/admin/addTicketToGroup"/>
+              <OnClickWidget name="Add Ticket" route="/admin/addNewMemberToGroup"/>
             ] 
           }
       />
