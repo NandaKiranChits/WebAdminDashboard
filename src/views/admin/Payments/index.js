@@ -3,7 +3,10 @@ import React from 'react';
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
 import CustomHeaderStats from "components/Headers/CustomHeaderStats.js";
 
+import SearchPayments from './SearchPayments';
+
 import PaymentsTable from "./PaymentsTable";
+import SelectDate from './SelectDate';
 
 const Payments = () =>{
     return (
@@ -28,11 +31,9 @@ const Payments = () =>{
 
 const PaymentsContent = () =>{
     return (<div className="flex flex-wrap mt-4">
-       <div className="w-full lg:w-4/12 px-4">
-              <SelectDate placeholder="Start date" onchange={(val)=>{console.log(val)}}/>
-      </div>
+      <SelectDate />
       <div className="w-full lg:w-4/12 px-2">
-        <SelectDate placeholder="End date" onchange={(val)=>{console.log(val)}}/>
+        <SearchPayments/>
       </div>
       <div className="w-full mb-12 px-4">
         <PaymentsTable />
@@ -41,13 +42,7 @@ const PaymentsContent = () =>{
 }
 
 
-const SelectDate = ({placeholder,onchange}) =>{
-    return (
-      <div class="mb-3 pt-0">
-        <input placeholder={placeholder} type="text" onChange={(e)=>(onchange(e.target.value))} onFocus={(e)=>e.target.type='date'}  class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full"/>
-      </div>
-    )
-}
+
 
 
 

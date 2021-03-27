@@ -2,24 +2,38 @@ import CustomDropDownChildWidget from '../../CustomDropDownChildWidget';
 
 import CustomTable from '../../CustomTable';
 import {Link} from 'react-router-dom';
+import React from "react";
+import {view} from '@risingstack/react-easy-state';
+import collectionStore from './DailyCollectionStore';
 
-export default function DailyCollectionTable({ color }) {
+
+export default view(()=>{
+
+    var values = [];
+    var index = 1;
+    collectionStore.data.forEach((data)=>{
+        values.push(
+            [index,
+            data.date,
+            data.cash,
+            data.cheque,
+            data.neft,
+            data.cash+data.cheque+data.neft,
+            <DropDown />]
+        )
+    })
+
     return (
       <>
         <CustomTable 
             tableName = {"Daily Collection Table"}
             color= {"light"}
             rows = {["#","Date","Cash","Cheque","NEFT","Total",""]}
-            values = {
-              [[1,
-                "21/12/2020",
-              "40,000","4,000","4,000" ,"1,000,000",<DropDown />],
-                ]
-            }
+            values = {values}
         />
       </>
     );
-  }
+})
 
 
   function DropDown(){

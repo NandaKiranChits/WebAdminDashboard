@@ -3,30 +3,47 @@ import CustomDropDownChildWidget from '../../CustomDropDownChildWidget';
 import CustomTable from '../../CustomTable';
 import {Link} from 'react-router-dom';
 
-export default function PendingAuctionTable({ color }) {
+import {view} from '@risingstack/react-easy-state';
+import pendingAuctionStore from './PendingAuctionStore';
+
+
+export default view(()=>{
+
+   pendingAuctionStore.getPendingAuctionData();
+
+   var values = [];
+
+   pendingAuctionStore.pendingData.forEach((doc)=>{
+     values.push(
+       [
+         doc.group_id,
+         doc.auction_no,
+         doc.create_date.toDate().toLocaleDateString(),
+         doc.date_and_time.toDate().toString(),
+         <DropDown group_id={doc.group_id} auct_no={doc.auction_no}/>
+       ]
+     )
+   })
+
     return (
       <>
         <CustomTable 
             tableName = {"Upcoming Auctions"}
             color= {"light"}
             rows = {["Group ID","Auct. No.","Create Date","Auction Date and Timings",""]}
-            values = {
-              [["GRS101",
-                "1",
-            "12/10/2020","30-12-2020 10:45 AM",<DropDown />],]
-            }
+            values = {values}
         />
       </>
     );
-  }
+})
 
 
-  function DropDown(){
+  function DropDown({group_id,auct_no}){
     return (
       <CustomDropDownChildWidget 
           dropDownItems={
             [
-              <OnClickWidget name="View" route="/admin/groupView"/>,
+              <OnClickWidget name="Approve" route={`/admin/approveAuction?group_id=${group_id}&auction_no=${auct_no}`}/>,
               <OnClickWidget name="Add Ticket" route="/admin/groupView"/>
             ] 
           }

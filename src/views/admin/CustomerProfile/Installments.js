@@ -7,7 +7,7 @@ export default function Installments(){
         <CustomTable 
             color={"light"}
             tableName = "Installments"
-            rows ={["Sl.No","Ticket","Inst No.","Due Date","Inst Value","Dividend","Adjustments","Interest", "Other Charges" ,"Total","Total Paid","Excess Paid", ""]}
+            rows ={["Sl.No","Ticket","Inst No.","Due Date","Inst Value","Dividend","accepted_from_other","Interest", "Other Charges" ,"Total","Total Paid","Excess Paid", ""]}
             values = {
                 [
                     ["GRS501","12","1","21/12/1999", "50,000","34,000","2,000","4000","3,000","0","0",<DropDown />],

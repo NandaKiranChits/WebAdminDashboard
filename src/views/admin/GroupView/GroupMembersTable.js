@@ -2,47 +2,39 @@
 import CustomTable from '../../CustomTable';
 import CustomDropDown from '../../CustomDropdown';
 
-export default function GroupMembersTable({ color }) {
+import {view} from '@risingstack/react-easy-state';
+import groupViewStore from './store/GroupViewStore';
+
+export default view(()=>{
+    var values = [];
+
+    groupViewStore.group_members.forEach((cust)=>{
+      values.push(
+        [
+          cust.ticket_no,
+          cust.name,
+          cust.cust_id,
+          cust.phone,
+          cust.status +" "+(cust.prizedInstallment===null?"":cust.prizedInstallment),
+          cust.account_balance,
+          cust.lean_details.isLean.toString(),
+          <DropDownCustom />
+        ]
+      )
+    })
     return (
       <>
         <CustomTable 
           color={"light"}
           tableName={"Group Members"}
           rows = {
-            ["Ticket No","Name","Customer ID","Phone","Stage","Due",""]
+            ["Ticket No","Name","Customer ID","Phone","Stage","Account Balance","isLean", ""]
           }
-          values = {
-            [
-              ["1","Vinay P","CUST-001","9019301344","Due","20,000",<DropDownCustom />],
-              ["1","Vinay P","CUST-001","9019301344","Due","20,000",<DropDownCustom />],
-              ["1","Vinay P","CUST-001","9019301344","Due","20,000",<DropDownCustom />],
-              ["1","Vinay P","CUST-001","9019301344","Due","20,000",<DropDownCustom />],
-              ["1","Vinay P","CUST-001","9019301344","Due","20,000",<DropDownCustom />],
-              ["1","Vinay P","CUST-001","9019301344","Due","20,000",<DropDownCustom />],
-              ["1","Vinay P","CUST-001","9019301344","Due","20,000",<DropDownCustom />],
-              ["1","Vinay P","CUST-001","9019301344","Due","20,000",<DropDownCustom />],
-              ["1","Vinay P","CUST-001","9019301344","Due","20,000",<DropDownCustom />],
-              ["1","Vinay P","CUST-001","9019301344","Due","20,000",<DropDownCustom />],
-              ["1","Vinay P","CUST-001","9019301344","Due","20,000",<DropDownCustom />],
-              ["1","Vinay P","CUST-001","9019301344","Due","20,000",<DropDownCustom />],
-              ["1","Vinay P","CUST-001","9019301344","Due","20,000",<DropDownCustom />],
-              ["1","Vinay P","CUST-001","9019301344","Due","20,000",<DropDownCustom />],
-              ["1","Vinay P","CUST-001","9019301344","Due","20,000",<DropDownCustom />],
-              ["1","Vinay P","CUST-001","9019301344","Due","20,000",<DropDownCustom />],
-              ["1","Vinay P","CUST-001","9019301344","Due","20,000",<DropDownCustom />],
-              ["1","Vinay P","CUST-001","9019301344","Due","20,000",<DropDownCustom />],
-              ["1","Vinay P","CUST-001","9019301344","Due","20,000",<DropDownCustom />],
-              ["1","Vinay P","CUST-001","9019301344","Due","20,000",<DropDownCustom />],
-              ["1","Vinay P","CUST-001","9019301344","Due","20,000",<DropDownCustom />],
-              ["1","Vinay P","CUST-001","9019301344","Due","20,000",<DropDownCustom />],
-              ["1","Vinay P","CUST-001","9019301344","Due","20,000",<DropDownCustom />],
-              ["1","Vinay P","CUST-001","9019301344","Due","20,000",<DropDownCustom />],
-            ]
-          }
+          values = {values}
         />
       </>
     );
-  }
+  })
 
 
   function DropDownCustom(){

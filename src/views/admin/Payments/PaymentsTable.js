@@ -2,25 +2,41 @@ import CustomDropDownChildWidget from '../../CustomDropDownChildWidget';
 
 import CustomTable from '../../CustomTable';
 import {Link} from 'react-router-dom';
+import {view} from '@risingstack/react-easy-state';
+import paymentsStore from './paymentsStore';
 
-export default function PaymentsTable({ color }) {
+export default view(()=>{
+    paymentsStore.getTodaysData();
+
+    var values = [];
+
+    paymentsStore.view_data.forEach((doc)=>{
+      console.log("doc = ",doc);
+      values.push(
+        [
+          `${doc.payment_id===null?"Not Assigned Yet":doc.payment_id}/${doc.mr_details.mr_no===null?"":doc.mr_details.mr_no}`,
+          `${doc.date.replaceAll("/","-")} / ${doc.mr_details.mr_date===null?"":doc.mr_details.mr_date.replaceAll("/","-")}`,
+          doc.ticket_no,
+          doc.cust_details.name,
+          doc.inst_details.inst_no,
+          doc.payment_details.total_paid,
+          doc.payment_details.payment_method,
+          <DropDown />
+        ]
+      )
+    })
+
     return (
       <>
         <CustomTable 
             tableName = {"Payments"}
             color= {"light"}
             rows = {["Receipt ID/MR No.","Receipt Date/MR Date","Ticket","Name","Inst No","Total Paid","Payment Method",""]}
-            values = {
-              [["12/11",
-                "2-2-2020/3-2-2020",
-              "GRS501/10","Vinay P","12","40,000","CASH",<DropDown />],
-              
-                ]
-            }
+            values = {values}
         />
       </>
     );
-  }
+  })
 
 
   function DropDown(){

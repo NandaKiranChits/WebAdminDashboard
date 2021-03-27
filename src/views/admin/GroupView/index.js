@@ -12,8 +12,21 @@ import AuctionDetailsTable from './AuctionDetailsTable';
 import VoucherDetails from './Vouchers';
 import PaymentDetails from './Payments';
 
+import {view} from '@risingstack/react-easy-state';
+import groupViewStore from './store/GroupViewStore';
 
-export default function Group() {
+
+export default view(()=> {
+
+  var url_string = window.location.href;
+  var url = new URL(url_string);
+  var group_id = url.searchParams.get("group_id");
+
+  if(groupViewStore.group_id!==group_id){
+    groupViewStore.group_id = group_id;
+    groupViewStore.getGroup();
+  }
+
   return (
       <>
       <div className="relative md:ml-64 bg-blueGray-100">
@@ -21,14 +34,20 @@ export default function Group() {
         {/* Header */}
         <GroupViewStats />
         <div className="px-4 md:px-4 mx-auto w-full -m-24">
-              <GroupViewContent />
+              {
+                (!groupViewStore.isLoading) &&
+                <GroupViewContent />
+              }
+              {
+                (groupViewStore.isLoading) && <p>Loading ...</p>
+              }
         </div>
       </div>
       
     </>
     
   );
-}
+})
 
 const GroupViewContent  = () =>{
   

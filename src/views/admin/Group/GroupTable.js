@@ -28,7 +28,7 @@ function PaymentDetailsTable({ isLoading,groupData,isError,errorMessage }) {
                   `${data.occupied_members}/${data.total_members}`,
                   <CompletedPercentage percentage={parseFloat(data.no_of_auctions_completed/data.no_of_months)*100} />,
                   "No",
-                  <DropDown />
+                  <DropDown group_id={data.group_name}/>
                 ]);
     })
     return (
@@ -81,12 +81,12 @@ function PaymentDetailsTable({ isLoading,groupData,isError,errorMessage }) {
   </div>
   }
 
-  function DropDown(){
+  function DropDown({group_id}){
     return (
       <CustomDropDownChildWidget 
           dropDownItems={
             [
-              <OnClickWidget name="View" route="/admin/groupView"/>
+              <OnClickWidget name="View" route={`/admin/groupView?group_id=${group_id}`}/>
             ] 
           }
       />
