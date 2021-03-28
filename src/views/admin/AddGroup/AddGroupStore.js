@@ -128,6 +128,7 @@ const addGroupStore = store({
             console.log("The group has been added succesfully");
             window.alert("Group Added Succesfully");
             addGroupStore.isLoading  = false;
+            addGroupStore.clearAll();
             return;
         })
         .catch((err)=>{
@@ -135,6 +136,41 @@ const addGroupStore = store({
             addGroupStore.isLoading  = false;
             window.alert(err.message);
         })
+    },
+
+
+    clearAll(){
+
+    addGroupStore.group_name = "";
+    addGroupStore.start_date = new Date();
+    addGroupStore.end_date = "";
+    addGroupStore.no_of_months = "";
+    addGroupStore.monthly_subscription = "";
+    addGroupStore.group_value = "";
+
+    addGroupStore.first_auction_date = "";
+    addGroupStore.min_bid = "";
+    addGroupStore.max_bid = "";
+    addGroupStore.foreman_commission = "";
+    addGroupStore.company_chit_exists = true;
+    addGroupStore.company_chit_no = "";
+    addGroupStore.first_auction_is_company_auction  = true;
+
+    addGroupStore.prizedInterestRate = "";
+    addGroupStore.nonPrizedInterestRate = "";
+    addGroupStore.interestStartsAfterHowManyDays = 15;
+
+    addGroupStore.pso_no = "";
+    addGroupStore.pso_date = "";
+
+    addGroupStore.cc_no  = "";
+    addGroupStore.cc_date = "";
+
+    addGroupStore.deposit_cert_no = "";
+    addGroupStore.deposit_amount = "";
+    addGroupStore.deposit_date = "";
+    addGroupStore.deposit_bank = "";
+    addGroupStore.rate_of_interest = "";
     }
 })
 

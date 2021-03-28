@@ -2,22 +2,39 @@ import React from 'react';
 import CustomTable from '../../CustomTable';
 import CustomDropDown from '../../CustomDropdown';
 
-export default function BankDetails(){
+
+import {view} from '@risingstack/react-easy-state';
+import custProfileStore from './store/index';
+import isEmpty from '../util/isEmpty';
+
+export default view(()=>{
+
+   let values = [];
+
+   custProfileStore.payments_data.forEach((doc)=>{
+     values.push(
+       [
+         `${doc.payment_id} ${isEmpty(doc.mr_details.mr_no)?"":"/"+doc.mr_details.mr_no}`,
+         doc.ticket_no,
+         doc.inst_details.inst_no,
+         `${doc.date.toDate().toLocaleDateString()} ${isEmpty(doc.mr_details.mr_date)?"":"/"+doc.mr_details.mr_date.toLocaleDateString()}`,
+         doc.payment_details.total_paid,
+         doc.payment_details.payment_method,
+         <DropDown />
+       ]
+     )
+   })
+
     return (
         <CustomTable 
             color={"light"}
             tableName = "Payment"
             rows ={["Payment No./MR No.","Ticket","Inst No.","Online Date/Mr Date","Paid","Payment Method",""]}
-            values = {
-                [
-                    ["22121/121","12","3","1-3-2021/1-4-2021","16,000","CASH",<DropDown />],
-                    ["222121/121","11","4", "1-4-2022/1-5-2022","34,000","CASH",<DropDown />]
-                ]
-            }
+            values = {values}
 
         />
     )
-}
+});
 
 function DropDown(){
     return (

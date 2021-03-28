@@ -2,22 +2,45 @@ import React from 'react';
 import CustomTable from '../../CustomTable';
 import CustomDropDown from '../../CustomDropdown';
 
-export default function Installments(){
+
+import {view} from '@risingstack/react-easy-state';
+import custProfileStore from './store/index';
+
+export default view(()=>{
+    let values = [];
+
+    custProfileStore.installments_data.forEach((doc)=>{
+      values.push(
+        [
+          doc.group_id,
+          doc.ticket_no,
+          doc.auction_no,
+          doc.status.toUpperCase(),
+          doc.due_date.toDate().toLocaleDateString(),
+          doc.installment_value,
+          doc.dividend,
+          doc.interest,
+          doc.other_charges,
+          doc.installment_value-doc.dividend+doc.interest,
+          doc.total_paid - doc.accepted_from_other,
+          doc.accepted_from_other,
+          doc.advance_paid,
+          doc.donated,
+          doc.comments,
+          <DropDown />
+        ]
+      )
+    })
     return (
         <CustomTable 
             color={"light"}
             tableName = "Installments"
-            rows ={["Sl.No","Ticket","Inst No.","Due Date","Inst Value","Dividend","accepted_from_other","Interest", "Other Charges" ,"Total","Total Paid","Excess Paid", ""]}
-            values = {
-                [
-                    ["GRS501","12","1","21/12/1999", "50,000","34,000","2,000","4000","3,000","0","0",<DropDown />],
-                    ["GRS501","12","1","21/12/1999", "50,000","34,000","2,000","4000","3,000","0","0",<DropDown />],
-                ]
-            }
+            rows ={["Sl.No","Ticket","Inst No.","Status","Due Date","Inst Value","Dividend","Interest", "Other Charges" ,"Total","Total Paid","Adusted From Other Inst","Excess Paid","Used in Other Inst","Comments",""]}
+            values = {values}
 
         />
     )
-}
+})
 
 function DropDown(){
     return (

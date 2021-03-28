@@ -2,22 +2,39 @@ import React from 'react';
 import CustomTable from '../../CustomTable';
 import CustomDropDown from '../../CustomDropdown';
 
-export default function AuctionDetails(){
+import {view} from '@risingstack/react-easy-state';
+import custProfileStore from './store/index';
+
+export default view(()=>{
+
+    let values = [];
+    let index = 1;
+    custProfileStore.auction_data.forEach((doc)=>{
+      values.push(
+        [
+          index,
+          doc.group_id,
+          doc.auction_no,
+          doc.date_and_time.toDate().toISOString(),
+          doc.status==="pending"?"":doc.bidding_details.bid_amount,
+          doc.status==="pending"?"":(doc.chit_value-doc.bidding_details.bid_amount),
+          doc.status==="pending"?"":(doc.payment_details.amount_disbursed),
+          <DropDown />
+        ]
+      );
+      index = index + 1;
+    })
+
     return (
         <CustomTable 
             color={"light"}
             tableName = "Auction"
             rows ={["Sl No.","Group ID", "Auct No.","Auct Date","Bid Amount","Prize Money","Settled Amount",""]}
-            values = {
-                [
-                    [1,"GRS501","12", "12/2/2020", "50,000","34,000","16,000",<DropDown />],
-                    [2,"GRS502","11","12/2/2020","50,000","34,000","16,000",<DropDown />]
-                ]
-            }
+            values = {values}
 
         />
     )
-}
+})
 
 function DropDown(){
     return (

@@ -14,10 +14,12 @@ const groupViewStore = store({
 
     group_members : [],
     auction_data : [],
+    payments_data : [],
 
     unsubscribe : null,
     groupCustUnsubscribe  : null,
     auctionUnsubscribe : null,
+    paymentsUnsubscribe : null,
 
     getGroup(){
         if(isEmpty(groupViewStore.group_id)){
@@ -35,6 +37,7 @@ const groupViewStore = store({
 
         groupViewStore.getGroupMembers(groupViewStore.group_id);
         groupViewStore.getAuction(groupViewStore.group_id);
+        groupViewStore.getPaymentsData(groupViewStore.group_id);
 
         var ref = firebase.firestore().collection(CollectionNames.group).doc(groupViewStore.group_id);
 
@@ -91,7 +94,28 @@ const groupViewStore = store({
         },(e)=>{
             console.error(e);
         })
+    },
+
+    getPaymentsData(group_id){
+        if(groupViewStore.paymentsUnsubscribe!==null){
+            groupViewStore.paymentsUnsubscribe();
+            groupViewStore.paymentsUnsubscribe = null;
+        }
+
+        var paymentsRef = firebase.firestore().collection(CollectionNames.payments).where("group_id","==",group_id);
+
+        groupViewStore.paymentsUnsubscribe = paymentsRef.onSnapshot((snap)=>{
+            var paymentsData = [];
+            snap.forEach((doc)=>{
+                paymentsData.push(doc.data());
+            })
+            groupViewStore.payments_data = paymentsData;
+        },(e)=>{
+            console.error(e);
+        })
     }
+
+
 
 
 

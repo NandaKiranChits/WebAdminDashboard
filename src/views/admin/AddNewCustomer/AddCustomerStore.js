@@ -34,7 +34,7 @@ const addCustomerStore = store({
         addCustomerStore.isLoading = true;
 
         var customerData = {
-            id : null,
+            id :  addCustomerStore.phone,
 
             name : addCustomerStore.name,
             father_husband_name : addCustomerStore.father_husband_name,

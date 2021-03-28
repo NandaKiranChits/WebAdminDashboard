@@ -2,22 +2,37 @@ import React from 'react';
 import CustomTable from '../../CustomTable';
 import CustomDropDown from '../../CustomDropdown';
 
-export default function BankDetails(){
+import {view} from '@risingstack/react-easy-state';
+import custProfileStore from './store/index';
+
+export default view(()=>{
+
+    let customerTickets = [];
+
+    custProfileStore.groupCustomerData.forEach((doc)=>{
+      customerTickets.push(
+        [
+          doc.group_id,
+          doc.ticket_no,
+          doc.account_balance,
+          doc.total_amount_paid,
+          0,
+          doc.stage,
+          <DropDown />
+        ]
+      )
+    })
+
     return (
         <CustomTable 
             color={"light"}
             tableName = "Customer Tickets"
             rows ={["Group ID","Ticket No.","Account Balance","Total Paid","Total Due","Stage",""]}
-            values = {
-                [
-                    ["GRS501","12","50,000","34,000","16,000","Non-Prized",<DropDown />],
-                    ["GRS502","11","50,000","34,000","16,000","Non-Prized",<DropDown />]
-                ]
-            }
+            values = {customerTickets}
 
         />
     )
-}
+})
 
 function DropDown(){
     return (

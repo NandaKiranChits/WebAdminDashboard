@@ -9,7 +9,7 @@ import DepositDetailsTable from './DepositDetailsTable';
 import PSOCCDetailsTable from './PSOCCDetails';
 import GroupSettingsTable from './GroupSettingsTable';
 import AuctionDetailsTable from './AuctionDetailsTable';
-import VoucherDetails from './Vouchers';
+//import VoucherDetails from './Vouchers';
 import PaymentDetails from './Payments';
 
 import {view} from '@risingstack/react-easy-state';
@@ -86,7 +86,7 @@ const GroupViewContent  = () =>{
         </div>
 
         <div className="w-full lg:w-12/12 px-4">
-          <VoucherDetails color={"light"}/>
+          {/*<VoucherDetails color={"light"}/>*/}
         </div>
 
         <div className="w-full lg:w-12/12 px-4">

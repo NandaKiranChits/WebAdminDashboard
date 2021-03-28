@@ -2,9 +2,28 @@ import React from "react";
 
 // components
 
+import {view} from '@risingstack/react-easy-state';
+import groupViewStore from './store/GroupViewStore';
+import isEmpty from '../util/isEmpty';
+
 import CardStats from "components/Cards/CardStats.js";
 
-export default function HeaderStats() {
+export default view(()=>{
+
+  var total_due = 0;
+
+  var dupData = {
+    group_id : isEmpty(groupViewStore.group_id) ? "" : groupViewStore.group_id,
+    occupied_members : isEmpty(groupViewStore.group_data) ? 0 : groupViewStore.group_data.occupied_members,
+    total_members : isEmpty(groupViewStore.group_data) ? 0 : groupViewStore.group_data.total_members,
+    no_of_months : isEmpty(groupViewStore.group_data) ? 0 : groupViewStore.group_data.no_of_months,
+    no_of_auctions_completed : isEmpty(groupViewStore.group_data) ? 0 : groupViewStore.group_data.no_of_auctions_completed,
+  };
+
+  groupViewStore.group_members.forEach((doc)=>{
+    total_due += doc.account_balance < 0 ? Math.abs(doc.account_balance) : 0;
+  })
+
   return (
     <>
       {/* Header */}
@@ -16,7 +35,7 @@ export default function HeaderStats() {
               <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                 <CardStats
                   statSubtitle="Group ID"
-                  statTitle="GRS101"
+                  statTitle={dupData.group_id}
                   statIconName="far fa-chart-bar"
                   statIconColor="bg-red-500"
                 />
@@ -24,7 +43,7 @@ export default function HeaderStats() {
               <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                 <CardStats
                   statSubtitle="DUE"
-                  statTitle="30,000"
+                  statTitle={total_due}
                  
                   statIconName="fas fa-chart-pie"
                   statIconColor="bg-orange-500"
@@ -33,7 +52,7 @@ export default function HeaderStats() {
               <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                 <CardStats
                   statSubtitle="MEMBERS"
-                  statTitle="48/50"
+                  statTitle={`${dupData.occupied_members} / ${dupData.total_members}`}
                   
                   statIconName="fas fa-users"
                   statIconColor="bg-pink-500"
@@ -42,7 +61,7 @@ export default function HeaderStats() {
               <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                 <CardStats
                   statSubtitle="Progress"
-                  statTitle="50.89%"
+                  statTitle={(dupData.no_of_auctions_completed/dupData.no_of_months)*100 + "%"}
                   statIconName="fas fa-percent"
                   statIconColor="bg-lightBlue-500"
                 />
@@ -53,4 +72,4 @@ export default function HeaderStats() {
       </div>
     </>
   );
-}
+})

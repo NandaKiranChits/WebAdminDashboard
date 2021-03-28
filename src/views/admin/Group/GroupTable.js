@@ -25,9 +25,9 @@ function PaymentDetailsTable({ isLoading,groupData,isError,errorMessage }) {
       values.push([
                   <GetGroupName groupName={data.group_name} />,
                   data.group_value,
-                  `${data.occupied_members}/${data.total_members}`,
+                  `${data.total_members}`,
+                  data.total_members-data.occupied_members,
                   <CompletedPercentage percentage={parseFloat(data.no_of_auctions_completed/data.no_of_months)*100} />,
-                  "No",
                   <DropDown group_id={data.group_name}/>
                 ]);
     })
@@ -46,7 +46,7 @@ function PaymentDetailsTable({ isLoading,groupData,isError,errorMessage }) {
         <CustomTable 
             tableName = {"Groups"}
             color= {"light"}
-            rows = {["Group ID","Value","Total Members","Completed","Due",""]}
+            rows = {["Group ID","Value","Total Members","Vacant","Completed",""]}
             values = {values}
         />
           }

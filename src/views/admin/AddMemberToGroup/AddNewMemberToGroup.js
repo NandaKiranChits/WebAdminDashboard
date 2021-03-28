@@ -2,6 +2,7 @@ import React from 'react';
 
 import {view} from '@risingstack/react-easy-state';
 import addMemberStore from './addMemberStore';
+import GroupList from '../util/GroupList/index';
 
 
 export default view(()=>{
@@ -37,7 +38,7 @@ export default view(()=>{
               </h6>
 
               <div class="flex flex-wrap mt-5">
-                <GroupFormInput placeholder={"Group ID"} labelName={"Group ID"} type="text" value={addMemberStore.group_id} onChange={(val)=>addMemberStore.group_id=val}/>
+                <SelectGroup value={addMemberStore.group_id} onChange={(val)=>addMemberStore.group_id = val}/>
                 <GroupFormInput placeholder={"Ticket No."} labelName={"Ticket No."} type="number" value={addMemberStore.ticket_no} onChange={(val)=>addMemberStore.ticket_no=val}/>
               </div>
 
@@ -82,4 +83,18 @@ const GroupFormInput = ({labelName,placeholder,type,isDisabled,value,onChange}) 
 GroupFormInput.defaultPops = {
     type : "text",
     isDisabled : false,
+}
+
+const SelectGroup  = ({value,onChange}) =>{
+  return (
+    <div className="w-full lg:w-6/12 px-4">
+    <div className="relative w-full mb-3">
+      <label
+        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+        htmlFor="grid-password"
+      >Select Group</label>
+    <GroupList value={value} onChange={onChange}/>
+    </div>
+    </div>
+  )
 }

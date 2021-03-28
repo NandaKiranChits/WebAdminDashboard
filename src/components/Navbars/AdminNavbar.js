@@ -1,8 +1,8 @@
 import React from "react";
+import LoginStore from 'views/auth/LoginStore';
+import {view} from '@risingstack/react-easy-state';
 
-import UserDropdown from "components/Dropdowns/UserDropdown.js";
-
-export default function Navbar() {
+export default view(()=>{
   return (
     <>
       {/* Navbar */}
@@ -14,28 +14,25 @@ export default function Navbar() {
             href="#pablo"
             onClick={(e) => e.preventDefault()}
           >
-            Dashboard
+            III TECH
           </a>
           {/* Form */}
           <form className="md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3">
             <div className="relative flex w-full flex-wrap items-stretch">
-              <span className="z-10 h-full leading-snug font-normal absolute text-center text-blueGray-300 absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3">
-                <i className="fas fa-search"></i>
-              </span>
-              <input
-                type="text"
-                placeholder="Search here..."
-                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm shadow outline-none focus:outline-none focus:ring w-full pl-10"
-              />
+            
+              <button
+                onClick={()=>{LoginStore.signout()}}
+                className="bg-white text-indigo active:bg-indigo-600 text-xs font-bold uppercase px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                type="button"
+              >
+                Logout
+              </button>
             </div>
           </form>
           {/* User */}
-          <ul className="flex-col md:flex-row list-none items-center hidden md:flex">
-            <UserDropdown />
-          </ul>
         </div>
       </nav>
       {/* End Navbar */}
     </>
   );
-}
+})

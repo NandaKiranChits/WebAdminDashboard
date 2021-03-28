@@ -11,10 +11,10 @@ export default view(()=>{
     if(custProfileStore.customer_data!==null){
       values.push(
         [
-          1,
-          custProfileStore.customer_data.bank_name,
-          custProfileStore.customer_data.account_no,
-          custProfileStore.customer_data.ifsc,
+          custProfileStore.customer_data.aadhar_no,
+          custProfileStore.customer_data.pan_no,
+          custProfileStore.customer_data.gst,
+          custProfileStore.customer_data.income_pa
         ]
       )
     }
@@ -24,12 +24,10 @@ export default view(()=>{
     return (
         <CustomTable 
             color={"light"}
-            tableName = "Bank Account Details"
-            rows ={["Sl No.","Bank Name","Account No","IFSC Code"]}
+            tableName = "Identity Proofs"
+            rows ={["Aadhar No","PAN No","GST","Income (PA)",]}
             values = {values }
 
         />
     )
 })
-
-  

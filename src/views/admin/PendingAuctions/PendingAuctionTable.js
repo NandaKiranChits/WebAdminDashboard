@@ -44,7 +44,7 @@ export default view(()=>{
           dropDownItems={
             [
               <OnClickWidget name="Approve" route={`/admin/approveAuction?group_id=${group_id}&auction_no=${auct_no}`}/>,
-              <OnClickWidget name="Add Ticket" route="/admin/groupView"/>
+            
             ] 
           }
       />

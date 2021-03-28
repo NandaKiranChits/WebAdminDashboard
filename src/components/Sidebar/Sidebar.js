@@ -4,8 +4,10 @@ import { Link } from "react-router-dom";
 
 import NotificationDropdown from "components/Dropdowns/NotificationDropdown.js";
 import UserDropdown from "components/Dropdowns/UserDropdown.js";
+import LoginStore from 'views/auth/LoginStore';
+import {view} from '@risingstack/react-easy-state';
 
-export default function Sidebar() {
+export default view(()=>{
   const [collapseShow, setCollapseShow] = React.useState("hidden");
   return (
     <>
@@ -74,14 +76,11 @@ export default function Sidebar() {
                 />
               </div>
             </form>
-
-            {/* Divider */}
+            {/*
             <hr className="my-4 md:min-w-full" />
-            {/* Heading */}
             <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
               Admin Layout Pages
             </h6>
-            {/* Navigation */}
 
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
               <li className="items-center">
@@ -174,6 +173,7 @@ export default function Sidebar() {
                 </Link>
               </li>
             </ul>
+                  */}
 
             {/* Divider */}
             <hr className="my-4 md:min-w-full" />
@@ -283,7 +283,7 @@ export default function Sidebar() {
                     Upcoming Auction
                 </Link>
               </li>
-
+              {/*
               <li className="items-center">
                 <Link
                   className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
@@ -293,6 +293,7 @@ export default function Sidebar() {
                     Approve Auction
                 </Link>
               </li>
+              */}
             
             </ul>
 
@@ -338,12 +339,11 @@ export default function Sidebar() {
             
             </ul>
 
+            {/*
             <hr className="my-4 md:min-w-full" />
-            {/* Heading */}
             <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
               Vouchers
             </h6>
-            {/* Navigation */}
 
             <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
               <li className="items-center">
@@ -357,6 +357,7 @@ export default function Sidebar() {
               </li>
             
             </ul>
+            */}
 
             <hr className="my-4 md:min-w-full" />
             {/* Heading */}
@@ -383,9 +384,28 @@ export default function Sidebar() {
             <hr className="my-4 md:min-w-full" />
             {/* Heading */}
             <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-              Auth Layout Pages
+              Logout
             </h6>
             {/* Navigation */}
+
+            <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
+              <li className="items-center">
+                <button
+                  onClick={()=>{LoginStore.signout()}}
+                  className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                >
+                  <i className="fas fa-fingerprint text-blueGray-400 mr-2 text-sm"></i>{" "}
+                  Logout
+                </button>
+              </li>
+              </ul>
+
+
+            {/* Divider 
+            <hr className="my-4 md:min-w-full" />
+            <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+              Auth
+            </h6>
 
             <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
               <li className="items-center">
@@ -409,13 +429,10 @@ export default function Sidebar() {
               </li>
             </ul>
 
-            {/* Divider */}
             <hr className="my-4 md:min-w-full" />
-            {/* Heading */}
             <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
               No Layout Pages
             </h6>
-            {/* Navigation */}
 
             <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
               <li className="items-center">
@@ -439,13 +456,10 @@ export default function Sidebar() {
               </li>
             </ul>
 
-            {/* Divider */}
             <hr className="my-4 md:min-w-full" />
-            {/* Heading */}
             <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
               Documentation
             </h6>
-            {/* Navigation */}
             <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
               <li className="inline-flex">
                 <a
@@ -535,9 +549,10 @@ export default function Sidebar() {
                 </a>
               </li>
             </ul>
+            */}
           </div>
         </div>
       </nav>
     </>
   );
-}
+})

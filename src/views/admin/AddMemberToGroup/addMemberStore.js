@@ -91,8 +91,19 @@ const addMemberStore = store({
 
         var doc_id = groupCustomerData.group_id + "-" + groupCustomerData.ticket_no;
         var groupCustomerRef = firebase.firestore().collection(collectionNames.groupCustomer).doc(doc_id);
+        var groupRef = firebase.firestore().collection(collectionNames.group).doc(groupCustomerData.group_id);
 
-
+        return groupRef.get().then((doc)=>{
+        
+            if(!doc.exists){
+                window.alert("group Doesnt Exist");
+                return;
+            }
+            var groupData = doc.data();
+            if(groupData.no_of_months===groupData.occupied_members){
+                window.alert("Group is Fulll");
+                return;
+            }
         return firebase.firestore().runTransaction((transaction)=>{
             return transaction.get(groupCustomerRef).then((doc)=>{
                 if(doc.exists){
@@ -112,6 +123,8 @@ const addMemberStore = store({
             addMemberStore.isLoading = false;
             window.alert(err.message);
         })
+        
+    }).catch((err)=>{console.error(err);addMemberStore.isLoading =false;})
     }
 
 

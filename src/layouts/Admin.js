@@ -27,8 +27,16 @@ import AddNewMemberToGroup from "views/admin/AddMemberToGroup/index.js";
 import AddNewPayment from "views/admin/AddNewPayment/index.js";
 import ApproveAuction from 'views/admin/ApproveAuction/index.js';
 
+import { useHistory } from "react-router-dom";
+import {view} from '@risingstack/react-easy-state';
+import LoginStore from 'views/auth/LoginStore';
 
-export default function Admin() {
+
+export default view(()=>{
+  const history = useHistory();
+  if(!LoginStore.isLoggedIn){
+    history.push("/auth/login");
+  }
   return (
     <>
       <Sidebar />
@@ -50,9 +58,9 @@ export default function Admin() {
             <Route path="/admin/addNewMemberToGroup" exact component={AddNewMemberToGroup} />
             <Route path="/admin/addNewPayment" exact component={AddNewPayment} />
             <Route path="/admin/approveAuction" exact component={ApproveAuction} />
-            <Redirect from="/admin" to="/admin/dashboard" />
+            <Redirect from="/admin" to="/admin/group" />
           </Switch>
           <FooterAdmin />
     </>
   );
-}
+})
