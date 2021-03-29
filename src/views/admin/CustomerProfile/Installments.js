@@ -1,7 +1,7 @@
 import React from 'react';
 import CustomTable from '../../CustomTable';
-import CustomDropDown from '../../CustomDropdown';
-
+import CustomDropDownChildWidget from '../../CustomDropDownChildWidget';
+import {Link} from 'react-router-dom';
 
 import {view} from '@risingstack/react-easy-state';
 import custProfileStore from './store/index';
@@ -9,7 +9,7 @@ import custProfileStore from './store/index';
 export default view(()=>{
     let values = [];
 
-    custProfileStore.installments_data.forEach((doc)=>{
+    custProfileStore.view_installments_data.forEach((doc)=>{
       values.push(
         [
           doc.group_id,
@@ -20,14 +20,15 @@ export default view(()=>{
           doc.installment_value,
           doc.dividend,
           doc.interest,
+          doc.waived_interest,
           doc.other_charges,
-          doc.installment_value-doc.dividend+doc.interest,
+          doc.installment_value-doc.dividend+(doc.interest-doc.waived_interest),
           doc.total_paid - doc.accepted_from_other,
           doc.accepted_from_other,
           doc.advance_paid,
           doc.donated,
           doc.comments,
-          <DropDown />
+          <DropDown group_id={doc.group_id} ticket_no={doc.ticket_no} inst_no={doc.auction_no} interest={doc.interest-doc.waived_interest}/>
         ]
       )
     })
@@ -35,25 +36,45 @@ export default view(()=>{
         <CustomTable 
             color={"light"}
             tableName = "Installments"
-            rows ={["Sl.No","Ticket","Inst No.","Status","Due Date","Inst Value","Dividend","Interest", "Other Charges" ,"Total","Total Paid","Adusted From Other Inst","Excess Paid","Used in Other Inst","Comments",""]}
+            rows ={["Sl.No","Ticket","Inst No.","Status","Due Date","Inst Value","Dividend","Interest","Waived Interest","Other Charges" ,"Total","Total Paid","Adusted From Other Inst","Excess Paid","Used in Other Inst","Comments",""]}
             values = {values}
 
         />
     )
 })
 
-function DropDown(){
+function DropDown({group_id,ticket_no,inst_no,interest}){
+
+    let temp = [];
+
+    if(interest>0){
+      temp.push(
+        <OnClickWidget name="Waive Interest" route={`/admin/waiveInterest?group_id=${group_id}&ticket_id=${ticket_no}&inst_no=${inst_no}`}/>,
+      )
+    }
+
+    temp.push(
+      <OnClickWidget name="View" route={"/admin/pendingAuction"}/>
+    )
+
     return (
-      <CustomDropDown 
-          dropDownItems={
-            [
-              {"name":"Edit",callFunction:()=>{console.log("Do nothing");}},
-              {"name":"Cancel",callFunction:()=>{console.log("Do nothing");}},
-              {"name":"Re-Auction",callFunction:()=>{console.log("Do nothing");}},
-              {"name":"Pay",callFunction:()=>{console.log("Do nothing");}},
-            ]
-          }
-      />
+        <CustomDropDownChildWidget 
+            dropDownItems={temp}
+        />
+      
     )
   }
+
+  const OnClickWidget =({name,route}) =>{
+    return (<Link 
+              className={
+                "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+              }
+              to={route}
+            >
+              {name}  
+            </Link>
+            );
+  }
+  
   

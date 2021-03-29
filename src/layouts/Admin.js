@@ -27,6 +27,8 @@ import AddNewMemberToGroup from "views/admin/AddMemberToGroup/index.js";
 import AddNewPayment from "views/admin/AddNewPayment/index.js";
 import ApproveAuction from 'views/admin/ApproveAuction/index.js';
 
+import WaiveInterest from 'views/admin/WaiveInterest/index';
+
 import { useHistory } from "react-router-dom";
 import {view} from '@risingstack/react-easy-state';
 import LoginStore from 'views/auth/LoginStore';
@@ -58,6 +60,7 @@ export default view(()=>{
             <Route path="/admin/addNewMemberToGroup" exact component={AddNewMemberToGroup} />
             <Route path="/admin/addNewPayment" exact component={AddNewPayment} />
             <Route path="/admin/approveAuction" exact component={ApproveAuction} />
+            <Route path="/admin/waiveInterest" exact component={WaiveInterest} />
             <Redirect from="/admin" to="/admin/group" />
           </Switch>
           <FooterAdmin />

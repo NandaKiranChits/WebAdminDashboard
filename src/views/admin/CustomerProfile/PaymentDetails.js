@@ -11,13 +11,13 @@ export default view(()=>{
 
    let values = [];
 
-   custProfileStore.payments_data.forEach((doc)=>{
+   custProfileStore.view_payments_data.forEach((doc)=>{
      values.push(
        [
          `${doc.payment_id} ${isEmpty(doc.mr_details.mr_no)?"":"/"+doc.mr_details.mr_no}`,
          doc.ticket_no,
          doc.inst_details.inst_no,
-         `${doc.date.toDate().toLocaleDateString()} ${isEmpty(doc.mr_details.mr_date)?"":"/"+doc.mr_details.mr_date.toLocaleDateString()}`,
+         `${doc.date.toDate().toLocaleDateString()} ${isEmpty(doc.mr_details.mr_date)?"":"/ "+doc.mr_details.mr_date.toDate().toLocaleDateString()}`,
          doc.payment_details.total_paid,
          doc.payment_details.payment_method,
          <DropDown />

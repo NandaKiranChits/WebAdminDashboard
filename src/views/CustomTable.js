@@ -1,8 +1,7 @@
 import React from 'react';
 
 export default function CustomTable({rows,values,tableName, color }) {
-    console.log("Rows = ",rows);
-    console.log("Values = ",values);
+   
     return (
       <>
         <div

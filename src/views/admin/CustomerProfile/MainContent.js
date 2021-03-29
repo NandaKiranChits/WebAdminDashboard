@@ -52,11 +52,28 @@ export default view(() =>{
             
 
                     <div className="w-full lg:w-12/12 px-4">
-                        <DataFilter />
+                        
                         {
                           (custProfileStore.auction_data.length>0) &&
                           <AuctionDetails />
                         }
+                        <DataFilter  value={(custProfileStore.selected_group_id===null||custProfileStore.selected_ticket_no===null)?"all":+custProfileStore.selected_group_id+"-"+custProfileStore.selected_ticket_no} 
+                                    onChange={(val)=>{
+                                      console.log("Selected value = ",val);
+                                      if(val==="all"){
+                                        custProfileStore.selected_group_id = null;
+                                        custProfileStore.selected_ticket_no = null;
+                                      }
+                                      else{
+                                        var splitted = val.split("-");
+                                        let group_id = splitted[0];
+                                        let ticket_id = splitted[1];
+                                        custProfileStore.selected_group_id = group_id;
+                                        custProfileStore.selected_ticket_no = ticket_id;
+                                      }
+                                      custProfileStore.sortData();
+                                    }}
+                                    />
                         <Installments />
                         <PaymentDetails />
                         {/*<Vouchers />*/}
@@ -102,8 +119,12 @@ const EnterTicket = ({value,onChange}) =>{
        
             <select value={value} onChange={(e)=>onChange(e.target.value)} class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full pl-10">
                 {
+                  custProfileStore.groupCustomerData.length>1 &&
+                  <option value={null}>Select</option>
+                }
+                {
                     custProfileStore.groupCustomerData.length>1 &&
-                    <option value={null}>All Ticket</option>
+                    <option value={"all"}>All Ticket</option>
                 }
                     {
                         custProfileStore.groupCustomerData.map((val)=>{

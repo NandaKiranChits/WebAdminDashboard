@@ -18,6 +18,38 @@ const custProfileStore = store({
     payments_data : [],
 
 
+    selected_ticket_no : null,
+    selected_group_id : null,
+    view_installments_data : [],
+    view_payments_data : [],
+
+
+    sortData(){
+        if(isEmpty(custProfileStore.selected_ticket_no) || isEmpty(custProfileStore.selected_group_id)){
+            custProfileStore.view_installments_data = custProfileStore.installments_data;
+            custProfileStore.view_payments_data = custProfileStore.payments_data;
+            return;
+        }
+
+        console.log("Installment Data = ",custProfileStore.installments_data);
+        console.log("Payments dAta  =",custProfileStore.payments_data);
+
+        custProfileStore.view_installments_data = custProfileStore.getFiltered(custProfileStore.installments_data,custProfileStore.selected_ticket_no,custProfileStore.selected_group_id);
+        custProfileStore.view_payments_data = custProfileStore.getFiltered(custProfileStore.payments_data,custProfileStore.selected_group_id,custProfileStore.selected_group_id);
+    },
+
+    getFiltered(data,ticket_no,group_id){
+        var temp = [];
+        console.log("Got data = ",data);
+        data.forEach((doc)=>{
+            if(doc["group_id"]===group_id && doc["ticket_no"]===ticket_no){
+                temp.push(doc);
+            } 
+        })
+        return temp;
+    },
+
+
     setGroupID(group_id){
         custProfileStore.group_id = group_id;
         
@@ -157,9 +189,11 @@ const custProfileStore = store({
                 installmentData.push(doc.data());
             })
             custProfileStore.installments_data = installmentData;
+            custProfileStore.view_installments_data = installmentData;
         }).catch((err)=>{
             console.error(err);
             custProfileStore.installments_data = [];
+            custProfileStore.view_installments_data = [];
         })
     },
 
@@ -173,9 +207,11 @@ const custProfileStore = store({
                 paymentData.push(doc.data());
             })
             custProfileStore.payments_data = paymentData;
+            custProfileStore.view_payments_data = paymentData;
         }).catch((err)=>{
             console.error(err);
             custProfileStore.payments_data = [];
+            custProfileStore.view_payments_data = [];
         })
     }
 })
