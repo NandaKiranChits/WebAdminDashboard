@@ -126,11 +126,11 @@ const EnterTicket = ({value,onChange}) =>{
                     custProfileStore.groupCustomerData.length>1 &&
                     <option value={"all"}>All Ticket</option>
                 }
-                    {
-                        custProfileStore.groupCustomerData.map((val)=>{
-                            return <option value={val.group_id+"-"+val.ticket_no}>{val.group_id+"/"+val.ticket_no}</option>
-                        })
-                    }
+                {
+                  custProfileStore.groupCustomerData.map((val)=>{
+                    return <option value={val.group_id+"-"+val.ticket_no}>{val.group_id+"/"+val.ticket_no}</option>
+                  })
+                }
             </select>
            </div>
         </div>
