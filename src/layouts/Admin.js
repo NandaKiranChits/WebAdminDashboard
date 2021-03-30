@@ -26,6 +26,7 @@ import AddNewCustomer from "views/admin/AddNewCustomer/index.js";
 import AddNewMemberToGroup from "views/admin/AddMemberToGroup/index.js";
 import AddNewPayment from "views/admin/AddNewPayment/index.js";
 import ApproveAuction from 'views/admin/ApproveAuction/index.js';
+import CancelPayment from "views/admin/CancelPayment/index.js";
 
 import WaiveInterest from 'views/admin/WaiveInterest/index';
 
@@ -61,6 +62,7 @@ export default view(()=>{
             <Route path="/admin/addNewPayment" exact component={AddNewPayment} />
             <Route path="/admin/approveAuction" exact component={ApproveAuction} />
             <Route path="/admin/waiveInterest" exact component={WaiveInterest} />
+            <Route path="/admin/cancelPayment" exact component={CancelPayment} />
             <Redirect from="/admin" to="/admin/group" />
           </Switch>
           <FooterAdmin />
