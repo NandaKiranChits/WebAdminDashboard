@@ -3,6 +3,10 @@ import React from 'react';
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
 import CustomHeaderStats from "components/Headers/CustomHeaderStats.js";
 
+import SelectDate from './SelectDate';
+import SearchVoucher from './SearchVoucher';
+
+
 
 import VouchersTable from "./VouchersTable";
 
@@ -21,7 +25,15 @@ const Payments = () =>{
                 ]
                 }/>
                 <div className="px-4 md:px-10 mx-auto w-full -m-24">
-                    <VouchersTable />
+                <div className="flex flex-wrap mt-4">
+                    <SelectDate />
+                    <div className="w-full lg:w-4/12 px-2">
+                        <SearchVoucher/>
+                    </div>
+                    <div className="w-full mb-12 px-4">
+                        <VouchersTable />
+                    </div>
+                </div>
                 </div>
             </div>
         </>

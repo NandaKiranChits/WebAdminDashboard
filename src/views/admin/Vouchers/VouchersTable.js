@@ -2,25 +2,41 @@ import CustomDropDownChildWidget from '../../CustomDropDownChildWidget';
 
 import CustomTable from '../../CustomTable';
 import {Link} from 'react-router-dom';
+import {view} from '@risingstack/react-easy-state';
+import voucherStore from './VoucherStore';
 
-export default function VouchersTable({ color }) {
+export default view(()=>{
+
+    let values = [];
+
+    voucherStore.view_data.forEach((doc)=>{
+        values.push(
+          [
+            doc.voucher_no,
+            doc.date.toDate().toLocaleDateString(),
+            doc.group_id,
+            doc.ticket_no,
+            doc.name,
+            doc.amount,
+            doc.type,
+            doc.comments,
+            <DropDown />
+          ]
+        )
+    })  
+
+
     return (
       <>
         <CustomTable 
             tableName = {"Vouchers Table"}
             color= {"light"}
-            rows = {["Voucher ID","Date","Ticket ID","Name","Amount","Type","Comments",""]}
-            values = {
-              [[1,
-                "21/12/1999",
-              "GRS501/12","Vinay P","12,000","CREDIT","NO Comments",<DropDown />],
-             
-                ]
-            }
+            rows = {["Voucher ID","Date","Group ID","Ticket ID","Name","Amount","Type","Comments",""]}
+            values = {values}
         />
       </>
     );
-  }
+})
 
 
   function DropDown(){

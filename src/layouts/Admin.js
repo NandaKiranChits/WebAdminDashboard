@@ -27,6 +27,7 @@ import AddNewMemberToGroup from "views/admin/AddMemberToGroup/index.js";
 import AddNewPayment from "views/admin/AddNewPayment/index.js";
 import ApproveAuction from 'views/admin/ApproveAuction/index.js';
 import CancelPayment from "views/admin/CancelPayment/index.js";
+import AddNewVoucher from "views/admin/AddNewVoucher/index.js";
 
 import WaiveInterest from 'views/admin/WaiveInterest/index';
 
@@ -57,6 +58,7 @@ export default view(()=>{
             <Route path="/admin/pendingAuction" exact component={PendingAuctions} />
             <Route path="/admin/payments" exact component={Payments} />
             <Route path="/admin/vouchers" exact component={Vouchers} />
+            <Route path="/admin/addNewVoucher" exact component={AddNewVoucher} />
             <Route path="/admin/dailyCollection" exact component={DailyCollection} />
             <Route path="/admin/addNewMemberToGroup" exact component={AddNewMemberToGroup} />
             <Route path="/admin/addNewPayment" exact component={AddNewPayment} />

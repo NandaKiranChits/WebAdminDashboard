@@ -14,25 +14,6 @@ const customerStore = store({
     view_data : [],
     searchValue  : "",
 
-    start_date : null,
-    end_date : null,
-
-    setStartDate(date){
-        customerStore.start_date = date;
-
-        if(customerStore.end_date!==null){
-            customerStore.getCustomer();
-        }
-    },
-
-    setEndDate(date){
-        customerStore.end_date = date;
-
-        if(customerStore.start_date!==null){
-            customerStore.getCustomer();
-        }
-    },
-
     getCustomer(){
         console.log("Getting Customers")
         customerStore.isLoading = true;
@@ -40,10 +21,8 @@ const customerStore = store({
         var endDate = new Date(customerStore.end_date);
         startDate.setHours(0,0,0,0);
         endDate.setHours(0,0,0,0);
-        var query = firebase.firestore().collection(collectionNames.customer)
-                                        .where("createDate",">=",startDate)
-                                        .where("createDate","<=",endDate);
-
+        var query = firebase.firestore().collection(collectionNames.customer);
+        
         return query.onSnapshot((snap)=>{
             var customerData = [];
             snap.forEach((doc)=>{

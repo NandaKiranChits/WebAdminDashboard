@@ -301,7 +301,7 @@ export default view(()=>{
             <hr className="my-4 md:min-w-full" />
             {/* Heading */}
             <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-              Payments
+              Receipt
             </h6>
             {/* Navigation */}
 
@@ -312,7 +312,7 @@ export default view(()=>{
                   to="/admin/payments"
                 >
                   <i className="fas fa-fingerprint text-blueGray-400 mr-2 text-sm"></i>{" "}
-                    Payments
+                    Receipt
                 </Link>
               </li>
               <li className="items-center">
@@ -333,7 +333,7 @@ export default view(()=>{
                         : "text-blueGray-300")
                     }
                   ></i>{" "}
-                  Add New Payment
+                  Add New Receipt
                 </Link>
               </li>
               <li className="items-center">
@@ -354,13 +354,13 @@ export default view(()=>{
                         : "text-blueGray-300")
                     }
                   ></i>{" "}
-                  Cancel Payment
+                  Cancel Receipt
                 </Link>
               </li>
             
             </ul>
 
-            {/*
+            
             <hr className="my-4 md:min-w-full" />
             <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
               Vouchers
@@ -376,9 +376,18 @@ export default view(()=>{
                     Vouchers
                 </Link>
               </li>
+              <li className="items-center">
+                <Link
+                  className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                  to="/admin/addNewVoucher"
+                >
+                  <i className="fas fa-fingerprint text-blueGray-400 mr-2 text-sm"></i>{" "}
+                    Add Voucher
+                </Link>
+              </li>
             
             </ul>
-            */}
+            
 
             <hr className="my-4 md:min-w-full" />
             {/* Heading */}

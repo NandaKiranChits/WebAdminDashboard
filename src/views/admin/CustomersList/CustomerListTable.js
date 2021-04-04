@@ -8,6 +8,11 @@ import customerStore from './customerStore';
 export default view(()=> {
     var customerData = [];
 
+
+    if(customerStore.customerData.length===0){
+        customerStore.getCustomer();
+    }
+
     customerStore.view_data.forEach((cust)=>{
       customerData.push([
           cust.phone,

@@ -8,17 +8,38 @@ import SearchPayments from './SearchPayments';
 import PaymentsTable from "./PaymentsTable";
 import SelectDate from './SelectDate';
 
-const Payments = () =>{
+import {view} from '@risingstack/react-easy-state';
+import paymentStore from './paymentsStore';
+
+export default view(()=>{
+
+  let total = 0,cash=0,neft=0,cheque =  0;
+
+  paymentStore.view_data.forEach((payment)=>{
+    let {payment_method,total_paid} = payment.payment_details;
+    if(payment_method==="CASH"){
+        cash += total_paid;
+    }
+    else if(payment_method==="NEFT"){
+        neft += total_paid;
+    }
+    else{
+      cheque += total_paid;
+    }
+    total += total_paid;
+  })
+
+
     return (
         <>
         <div className="relative md:ml-64 bg-blueGray-100">
                 <AdminNavbar />
                 {/* Header */}
                 <CustomHeaderStats widgets={[
-                        {"name":"Today",value:"50,000",icon:"far fa-chart-bar",color:"bg-red-500"},
-                        {"name":"Today CASH",value:"5,000",icon:"fas fa-users",color:"bg-orange-500"},
-                        {"name":"Today NEFT",value:"40,000",icon:"fas fa-chart-pie",color:"bg-pink-500"},
-                        {"name":"Today CHEQUE",value:"5,000",icon:"fas fa-percent",color:"bg-pink-500"},
+                        {"name":"Total",value:total,icon:"far fa-chart-bar",color:"bg-red-500"},
+                        {"name":"CASH",value:cash,icon:"fas fa-users",color:"bg-orange-500"},
+                        {"name":"NEFT",value:neft,icon:"fas fa-chart-pie",color:"bg-pink-500"},
+                        {"name":"CHEQUE",value:cheque,icon:"fas fa-percent",color:"bg-pink-500"},
                     ]
                 }/>
                 <div className="px-4 md:px-10 mx-auto w-full -m-24">
@@ -27,7 +48,7 @@ const Payments = () =>{
             </div>
         </>
     )
-}
+})
 
 const PaymentsContent = () =>{
     return (<div className="flex flex-wrap mt-4">
@@ -44,6 +65,3 @@ const PaymentsContent = () =>{
 
 
 
-
-
-export default Payments;

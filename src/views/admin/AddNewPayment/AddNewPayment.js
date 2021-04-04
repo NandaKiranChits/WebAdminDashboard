@@ -28,7 +28,7 @@ export default view(()=>{
                 Note : 
               </h6>
               <div className="flex flex-wrap">
-                  <p style={{fontSize:14}}>Please Provide 1 min time space between adding payments for same ticket</p>
+                  <p style={{fontSize:14,color:'red'}}>Please Provide 1 min time space between adding payments for same ticket</p>
               </div>
 
               <div className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase"></div>

@@ -7,6 +7,7 @@ const CollectionNames = {
     groupCustomer : "GroupCustomer",
     installment : "Installment",
     dailyCollection : "DailyCollection",
+    voucher : "Voucher",
 }
 
 export default CollectionNames;

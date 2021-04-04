@@ -2,7 +2,6 @@ import React from "react";
 
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
 import CustomHeaderStats from "components/Headers/CustomHeaderStats.js";
-import SelectDates from './SelectDates';
 import SearchInput from "./SearchInput";
 
 // components
@@ -58,7 +57,6 @@ export default view(()=>{
 
 const CustomerListContent = () =>{
     return (<div className="flex flex-wrap mt-4">
-      <SelectDates />
       <div className="w-full lg:w-4/12 px-4">
         <SearchInput/>
       </div>
