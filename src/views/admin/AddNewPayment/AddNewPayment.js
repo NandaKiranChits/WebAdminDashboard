@@ -54,9 +54,9 @@ export default view(()=>{
                     <GroupFormInput placeholder={"Other Charges"} labelName={"Other Charges (+)"} type="text" isDisabled={true} value={addPaymentStore.inst_stats.other_charges}/>
                     <GroupFormInput placeholder={"Total Paid"} labelName={"Total Paid (-)"} type="text" isDisabled={true} value={addPaymentStore.inst_stats.total_paid - addPaymentStore.inst_stats.accepted_from_other}/>
                     <GroupFormInput placeholder={"Adjusted"} labelName={"Adjusted From Other Installment(-)"} type="text" isDisabled={true} value={addPaymentStore.inst_stats.accepted_from_other}/>
-                    <GroupFormInput placeholder={"Sub Total"} labelName={"Sub Total"} type="text" isDisabled={true} value={addPaymentStore.inst_stats.total_without_interest}/>
-                    <GroupFormInput placeholder={"Total Interest"} labelName={"Total Interest"} type="text" isDisabled={true} value={addPaymentStore.inst_stats.interest}/>
-                    <GroupFormInput placeholder={"Grand Total"} labelName={"Grand Total"} type="text" isDisabled={true} value={addPaymentStore.inst_stats.total}/>
+                    <GroupFormInput placeholder={"Sub Total"} labelName={"Sub Total"} type="text" isDisabled={true} value={addPaymentStore.inst_stats.total_without_interest }/>
+                    <GroupFormInput placeholder={"Total Interest"} labelName={"Total Interest"} type="text" isDisabled={true} value={addPaymentStore.inst_stats.interest - addPaymentStore.inst_stats.waived_interest}/>
+                    <GroupFormInput placeholder={"Grand Total"} labelName={"Grand Total"} type="text" isDisabled={true} value={addPaymentStore.inst_stats.total - addPaymentStore.inst_stats.waived_interest}/>
                     <GroupFormInput placeholder={"Status"} labelName={"Status"} type="text" isDisabled={true} value={addPaymentStore.inst_stats.status.toUpperCase()}/>
                   </> 
                 }
