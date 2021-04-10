@@ -20,6 +20,7 @@ export default view(()=>{
          `${doc.date.toDate().toLocaleDateString()} ${isEmpty(doc.mr_details.mr_date)?"":"/ "+doc.mr_details.mr_date.toDate().toLocaleDateString()}`,
          doc.payment_details.total_paid,
          doc.payment_details.payment_method,
+         doc.status,
          <DropDown />
        ]
      )
@@ -29,7 +30,7 @@ export default view(()=>{
         <CustomTable 
             color={"light"}
             tableName = "Payment"
-            rows ={["Payment No./MR No.","Ticket","Inst No.","Online Date/Mr Date","Paid","Payment Method",""]}
+            rows ={["Payment No./MR No.","Ticket","Inst No.","Online Date/Mr Date","Paid","Payment Method","Status",""]}
             values = {values}
 
         />

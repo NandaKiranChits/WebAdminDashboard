@@ -21,6 +21,7 @@ export default view(()=>{
           doc.inst_details.inst_no,
           doc.payment_details.total_paid,
           doc.payment_details.payment_method,
+          doc.status,
           <DropDown />
         ]
       )
@@ -31,7 +32,7 @@ export default view(()=>{
         <CustomTable 
             tableName = {"Payments"}
             color= {"light"}
-            rows = {["Receipt ID/MR No.","Receipt Date/MR Date","Ticket","Name","Inst No","Total Paid","Payment Method",""]}
+            rows = {["Receipt ID/MR No.","Receipt Date/MR Date","Ticket","Name","Inst No","Total Paid","Payment Method","Status",""]}
             values = {values}
         />
       </>
