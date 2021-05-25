@@ -1,8 +1,6 @@
 import React from 'react';
 import CustomTable from '../../CustomTable';
 import CustomDropDown from '../../CustomDropdown';
-
-
 import {view} from '@risingstack/react-easy-state';
 import custProfileStore from './store/index';
 import isEmpty from '../util/isEmpty';
@@ -18,9 +16,9 @@ export default view(()=>{
          doc.ticket_no,
          doc.inst_details.inst_no,
          `${doc.date.toDate().toLocaleDateString()} ${isEmpty(doc.mr_details.mr_date)?"":"/ "+doc.mr_details.mr_date.toDate().toLocaleDateString()}`,
-         doc.payment_details.total_paid,
+         doc.payment_details.total_paid.toLocaleString(),
          doc.payment_details.payment_method,
-         doc.status,
+         doc.status,  
          <DropDown />
        ]
      )

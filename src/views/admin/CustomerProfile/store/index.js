@@ -35,14 +35,14 @@ const custProfileStore = store({
         console.log("Payments dAta  =",custProfileStore.payments_data);
 
         custProfileStore.view_installments_data = custProfileStore.getFiltered(custProfileStore.installments_data,custProfileStore.selected_ticket_no,custProfileStore.selected_group_id);
-        custProfileStore.view_payments_data = custProfileStore.getFiltered(custProfileStore.payments_data,custProfileStore.selected_group_id,custProfileStore.selected_group_id);
+        custProfileStore.view_payments_data = custProfileStore.getFiltered(custProfileStore.payments_data,custProfileStore.selected_ticket_no,custProfileStore.selected_group_id);
     },
 
     getFiltered(data,ticket_no,group_id){
         var temp = [];
         console.log("Got data = ",data);
         data.forEach((doc)=>{
-            if(doc["group_id"]===group_id && doc["ticket_no"]===ticket_no){
+            if(doc["group_id"]===group_id && doc["ticket_no"].toString()===ticket_no.toString()){
                 temp.push(doc);
             } 
         })
@@ -181,7 +181,7 @@ const custProfileStore = store({
     },
 
     getInstallmentData(customer_id){
-        let query = firebase.firestore().collection(CollectionNames.installment).where("cust_id","==",customer_id);
+        let query = firebase.firestore().collection(CollectionNames.installment).where("cust_id","==",customer_id).orderBy("auction_no");
 
         return query.get().then((snap)=>{
             let installmentData = [];
@@ -199,7 +199,9 @@ const custProfileStore = store({
 
 
     getPaymentData(customer_id){
-        let query = firebase.firestore().collection(CollectionNames.payments).where("cust_details.cust_id","==",customer_id);
+        let query = firebase.firestore().collection(CollectionNames.payments)
+                                        .where("cust_details.cust_id","==",customer_id)
+                                        .orderBy("payment_id");
 
         return query.get().then((snap)=>{
             let paymentData = [];
