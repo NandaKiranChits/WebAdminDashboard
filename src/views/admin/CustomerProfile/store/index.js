@@ -218,10 +218,124 @@ const custProfileStore = store({
     },
 
 
-    generateIntimationLetter(customer_id){
-    
+    async generateIntimationLetter(customer_id,group_id,ticket_no){
+        try{
+            custProfileStore.isLoading = true;
+            var customerData = await getCustomerData(customer_id);
+            var nextAuctData = await getNextAuctionData(group_id);
+            var latestArrearInstallmentData = await getLatestArrearInstallmentData(group_id,ticket_no);
+            var allArrearInstallmentData = await getAllArrearInstallments(group_id,ticket_no);
+
+            console.log("Got data. Customer Data = ",customerData," nextAuctData = ",nextAuctData," latestArrearInstallmentData = ",latestArrearInstallmentData," allArrearInstallmentData = ",allArrearInstallmentData);
+
+            openInitmationLetterPage(group_id,ticket_no,customerData,nextAuctData,latestArrearInstallmentData,allArrearInstallmentData)
+            custProfileStore.isLoading = false;
+        }   
+        catch(e){
+            custProfileStore.isLoading = false;
+            console.error(e);
+        }
     }
-})
+});
+
+function formatAMPM(date) {
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+    var strTime = hours + ':' + minutes + ' ' + ampm;
+    return strTime;
+  }
+
+async function openInitmationLetterPage(group_id,ticket_no,customerData,nextAuctData,latestArrearInstallmentData,allArrearInstallmentData){
+    var totalArrears = 0;
+
+    allArrearInstallmentData.forEach((doc)=>{
+        totalArrears += (doc["installment_value"] - doc["total_paid"] );
+    })
+    
+    window.open(`http://nandakiranchits.com/IntimationLetter/index.html`+
+                `?groupId=${group_id}` +
+                `&ticketId=${ticket_no}` +
+	            `&custName=${customerData["name"]}` +
+	            `&custAddress=${customerData["address"].replace("#","")}` +
+	            `&custPhone=${customerData["phone"]}` +
+	            `&chitValue=${nextAuctData["chit_value"]}` +
+	            `&bidAmount=0` +
+	            `&dividend=0` +
+	            `&auctionDate=${nextAuctData["date_and_time"].toDate().toDateString()}` +
+	            `&auctionTime=${formatAMPM(nextAuctData["date_and_time"].toDate())}` +
+    	        `&lastDueInstallmentNo=${latestArrearInstallmentData!=null?latestArrearInstallmentData["auction_no"]:""}` +
+	            `&lastDueInstallmentMonth=${latestArrearInstallmentData!=null?latestArrearInstallmentData["due_date"].toDate().getMonth()+"-"+latestArrearInstallmentData["due_date"].toDate().getFullYear():"None"}` +
+	            `&currentArrears=${latestArrearInstallmentData!=null?latestArrearInstallmentData["installment_value"]-latestArrearInstallmentData["total_paid"]:0}` +
+	            `&arrears=${totalArrears-(latestArrearInstallmentData!=null?latestArrearInstallmentData["installment_value"]-latestArrearInstallmentData["total_paid"]:0)}`,"_blank");
+}
+
+async function getCustomerData(customer_id){
+    console.log("GetCustomerData customer_id = ",customer_id);
+    let custQuery = firebase.firestore().collection(CollectionNames.customer).doc(customer_id);
+    return custQuery.get().then((doc)=>{
+        if(!doc.exists){
+            console.log("Customer not found");
+            throw new Error("Customer not found");
+        }
+        return doc.data();
+    });
+}
+
+async function getNextAuctionData(group_id){
+    let nextAuction = firebase.firestore().collection(CollectionNames.auction)
+                                          .where("group_id","==",group_id)
+                                          .where("status","==","pending")
+                                          .limit(1);
+    return nextAuction.get().then((snap)=>{
+        if(snap.size===0){
+            console.log("Next Auction not found");
+            throw new Error("Next Auction not found");
+        }
+
+        var nextAuctionData = snap.docs[0].data();
+        return nextAuctionData;
+    });
+}
 
 
+async function getLatestArrearInstallmentData(group_id,ticket_no){
+    let latestArrearInstallment = firebase.firestore().collection(CollectionNames.installment)
+                                                        .where("group_id","==",group_id)
+                                                        .where("ticket_no","==",ticket_no)
+                                                        .where("status","in",["due","part"])
+                                                        .orderBy("auction_no","desc")
+                                                        .limit(1);
+    return latestArrearInstallment.get().then((snap)=>{
+        if(snap.size===0){
+            return null;
+        }
+        var latestArrearInstallmentData = snap.docs[0].data();
+        return latestArrearInstallmentData;
+    });
+
+}
+
+
+async function getAllArrearInstallments(group_id,ticket_no){
+    let allArrearInstallment = firebase.firestore().collection(CollectionNames.installment)
+                                                    .where("group_id","==",group_id)
+                                                    .where("ticket_no","==",ticket_no)
+                                                    .where("status","in",["part","due"]);
+
+    return allArrearInstallment.get().then((snap)=>{
+            var allArrearInstallmentData = [];
+            snap.forEach((doc)=>{
+                allArrearInstallmentData.push(doc.data());
+            })
+            return allArrearInstallmentData;
+    }).catch((err)=>{
+        console.error(err);
+        return {status:"failure",message:err.message};
+    });
+
+}
 export default custProfileStore;
