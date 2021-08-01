@@ -18,11 +18,11 @@ export default view(()=>{
           `${doc.date.replaceAll("/","-")} / ${doc.mr_details.mr_date===null?"":doc.mr_details.mr_date.replaceAll("/","-")}`,
           doc.ticket_no,
           doc.cust_details.name,
-          doc.inst_details.inst_no,
+          doc.inst_details.inst_no-1,
           doc.payment_details.total_paid,
           doc.payment_details.payment_method,
           doc.status,
-          <DropDown />
+          <DropDown receipt_data={doc}/>
         ]
       )
     })
@@ -40,18 +40,41 @@ export default view(()=>{
   })
 
 
-  function DropDown(){
+function DropDown({receipt_data}){
     return (
       <CustomDropDownChildWidget 
           dropDownItems={
             [
+              <div className={
+                "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+              }
+              onClick={()=>{printReceipt(receipt_data)}}
+              >
+                Print
+
+              </div>
+                ,
               <OnClickWidget name="View" route="/admin/groupView"/>,
               <OnClickWidget name="Add Ticket" route="/admin/groupView"/>
             ] 
           }
       />
     )
-  }
+}
+
+function printReceipt(receipt_data){
+  console.log("receipt data = ",receipt_data);
+  window.open(`http://nandakiranchits.com/payments.html?`+
+                         `group_id=${receipt_data["group_id"]}&` +
+                         `ticket_no=${receipt_data["ticket_no"]}&` +
+                         `payment_id=${receipt_data["payment_id"]}&` +
+                         `payment_method=${receipt_data["payment_details"]["payment_method"]}&` +
+                         `payment_date=${receipt_data["date"]}&` +
+                         `inst_no=${receipt_data["inst_details"]["inst_no"]}&` + 
+                         `cust_name=${receipt_data["cust_details"]["name"]}&` +
+                         `cust_phone=${receipt_data["cust_details"]["phone"]}&` +
+                         `amount=${receipt_data["payment_details"]["total_paid"]}`,"_blank");
+}
   
 
 const OnClickWidget =({name,route}) =>{

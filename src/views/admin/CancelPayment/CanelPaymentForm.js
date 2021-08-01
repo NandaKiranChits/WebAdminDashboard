@@ -59,7 +59,6 @@ export default view(()=>{
                 Payment Details
               </h6>
               <div className="flex flex-wrap">
-
                 <GroupFormInput placeholder={"Inst No."} labelName={"Inst No."} type="text" isDisabled={true} value={cancelPaymentStore.payment_data.inst_details.inst_no}/>
                 <GroupFormInput placeholder={"Payment Method"} labelName={"Payment Method"} type="text" isDisabled={true} value={cancelPaymentStore.payment_data.payment_details.payment_method}/>
                 <GroupFormInput placeholder={"Total Paid"} labelName={"Total Paid"} type="text" isDisabled={true} value={cancelPaymentStore.payment_data.payment_details.total_paid}/>

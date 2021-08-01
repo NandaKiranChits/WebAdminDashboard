@@ -19,7 +19,7 @@ export default view(()=>{
          doc.payment_details.total_paid.toLocaleString(),
          doc.payment_details.payment_method,
          doc.status,  
-         <DropDown />
+         <DropDown receipt_data={doc}/>
        ]
      )
    })
@@ -35,15 +35,27 @@ export default view(()=>{
     )
 });
 
-function DropDown(){
+function printReceipt(receipt_data){
+  console.log("receipt data = ",receipt_data);
+  window.open(`http://nandakiranchits.com/payments.html?`+
+                         `group_id=${receipt_data["group_id"]}&` +
+                         `ticket_no=${receipt_data["ticket_no"]}&` +
+                         `payment_id=${receipt_data["payment_id"]}&` +
+                         `payment_method=${receipt_data["payment_details"]["payment_method"]}&` +
+                         `payment_date=${receipt_data["date"].toDate().toLocaleDateString()}&` +
+                         `inst_no=${receipt_data["inst_details"]["inst_no"]}&` + 
+                         `cust_name=${receipt_data["cust_details"]["name"]}&` +
+                         `cust_phone=${receipt_data["cust_details"]["phone"]}&` +
+                         `amount=${receipt_data["payment_details"]["total_paid"]}`,"_blank");
+}
+
+function DropDown({receipt_data}){
     return (
       <CustomDropDown 
           dropDownItems={
             [
-              {"name":"Edit",callFunction:()=>{console.log("Do nothing");}},
+              {"name":"Print",callFunction:()=>{printReceipt(receipt_data);}},
               {"name":"Cancel",callFunction:()=>{console.log("Do nothing");}},
-              {"name":"Re-Auction",callFunction:()=>{console.log("Do nothing");}},
-              {"name":"Pay",callFunction:()=>{console.log("Do nothing");}},
             ]
           }
       />

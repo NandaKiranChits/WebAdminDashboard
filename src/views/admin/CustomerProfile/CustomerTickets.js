@@ -12,6 +12,7 @@ export default view(()=>{
     custProfileStore.groupCustomerData.forEach((doc)=>{
       customerTickets.push(
         [
+          <DownloadIntimationLetter />,
           doc.group_id,
           doc.ticket_no,
           doc.account_balance,
@@ -27,12 +28,20 @@ export default view(()=>{
         <CustomTable 
             color={"light"}
             tableName = "Customer Tickets"
-            rows ={["Group ID","Ticket No.","Account Balance","Total Paid","Total Due","Stage",""]}
+            rows ={["Intimation Letter","Group ID","Ticket No.","Account Balance","Total Paid","Total Due","Stage",""]}
             values = {customerTickets}
 
         />
     )
 })
+
+function DownloadIntimationLetter(){
+  return (
+    <button onClick={()=>{}} className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+      Generate Intimation Letter
+    </button>
+  )
+}
 
 function DropDown(){
     return (

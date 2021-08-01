@@ -84,7 +84,7 @@ const groupViewStore = store({
             groupViewStore.auctionUnsubscribe = null;
         }
 
-        var ref = firebase.firestore().collection(CollectionNames.auction).where("group_id","==",group_id).orderBy("date_and_time","desc");
+        var ref = firebase.firestore().collection(CollectionNames.auction).where("group_id","==",group_id).orderBy("auction_no","desc");
 
         groupViewStore.auctionUnsubscribe = ref.onSnapshot((snap)=>{
             groupViewStore.auction_data = [];

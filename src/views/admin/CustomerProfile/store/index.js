@@ -215,6 +215,11 @@ const custProfileStore = store({
             custProfileStore.payments_data = [];
             custProfileStore.view_payments_data = [];
         })
+    },
+
+
+    generateIntimationLetter(customer_id){
+    
     }
 })
 

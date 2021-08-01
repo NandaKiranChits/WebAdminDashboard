@@ -69,6 +69,12 @@ export default view(()=>{
               <i className="fas fa-users mr-2 text-lg text-blueGray-400"></i>
               {custProfileStore.customer_data===null?"":custProfileStore.customer_data.nominee_phone}
             </div>
+
+          </div>
+          <div className="text-center border-t mt-5 p-5">
+            <button onClick={()=>{}} className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+               Generate Intimation Letter
+            </button>
           </div>
         </div>
       </div>

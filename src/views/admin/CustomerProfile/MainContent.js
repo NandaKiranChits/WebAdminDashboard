@@ -1,4 +1,5 @@
 import React from "react";
+
 import CustomerProfileDesc from "./CustomerProfileDesc.js";
 
 import BankDetails from './BankDetails';
@@ -37,6 +38,7 @@ export default view(() =>{
             {
                 (!custProfileStore.isLoading) &&
                 <>
+                    
                     <CustomerTickets />
                     <BankDetails />
                     <IDProofs />
