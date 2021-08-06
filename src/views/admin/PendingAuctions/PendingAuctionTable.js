@@ -17,7 +17,7 @@ export default view(()=>{
      values.push(
        [
          doc.group_id,
-         doc.auction_no,
+         doc.auction_no-1,
          doc.create_date.toDate().toLocaleDateString(),
          doc.date_and_time.toDate().toString(),
          <DropDown group_id={doc.group_id} auct_no={doc.auction_no}/>

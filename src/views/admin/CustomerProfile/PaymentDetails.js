@@ -14,7 +14,7 @@ export default view(()=>{
        [
          `${doc.payment_id} ${isEmpty(doc.mr_details.mr_no)?"":"/"+doc.mr_details.mr_no}`,
          doc.ticket_no,
-         doc.inst_details.inst_no,
+         doc.inst_details.inst_no-1,
          `${doc.date.toDate().toLocaleDateString()} ${isEmpty(doc.mr_details.mr_date)?"":"/ "+doc.mr_details.mr_date.toDate().toLocaleDateString()}`,
          doc.payment_details.total_paid.toLocaleString(),
          doc.payment_details.payment_method,

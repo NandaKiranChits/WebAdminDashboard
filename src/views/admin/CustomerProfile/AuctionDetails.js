@@ -14,7 +14,7 @@ export default view(()=>{
         [
           index,
           doc.group_id,
-          doc.auction_no,
+          doc.auction_no-1,
           doc.date_and_time.toDate().toISOString(),
           doc.status==="pending"?"":doc.bidding_details.bid_amount,
           doc.status==="pending"?"":(doc.chit_value-doc.bidding_details.bid_amount),

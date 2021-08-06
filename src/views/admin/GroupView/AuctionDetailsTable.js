@@ -10,7 +10,7 @@ export default view(()=>{
     groupViewStore.auction_data.forEach((auction)=>{
       values.push(
         [
-          auction["auction_no"] +  (auction.company_auction ? " (No Auction)" : "") ,
+          (auction["auction_no"]-1) +  (auction.company_auction ? " (No Auction)" : "") ,
           auction.date_and_time.toDate().toUTCString(),
           auction.bidding_details.bid_amount,
           auction.bidding_details.dividend,

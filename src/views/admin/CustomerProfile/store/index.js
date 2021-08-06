@@ -267,7 +267,7 @@ async function openInitmationLetterPage(group_id,ticket_no,customerData,nextAuct
 	            `&dividend=0` +
 	            `&auctionDate=${nextAuctData["date_and_time"].toDate().toDateString()}` +
 	            `&auctionTime=${formatAMPM(nextAuctData["date_and_time"].toDate())}` +
-    	        `&lastDueInstallmentNo=${latestArrearInstallmentData!=null?latestArrearInstallmentData["auction_no"]:""}` +
+    	        `&lastDueInstallmentNo=${latestArrearInstallmentData!=null?(latestArrearInstallmentData["auction_no"]-1):""}` +
 	            `&lastDueInstallmentMonth=${latestArrearInstallmentData!=null?latestArrearInstallmentData["due_date"].toDate().getMonth()+"-"+latestArrearInstallmentData["due_date"].toDate().getFullYear():"None"}` +
 	            `&currentArrears=${latestArrearInstallmentData!=null?latestArrearInstallmentData["installment_value"]-latestArrearInstallmentData["total_paid"]:0}` +
 	            `&arrears=${totalArrears-(latestArrearInstallmentData!=null?latestArrearInstallmentData["installment_value"]-latestArrearInstallmentData["total_paid"]:0)}`,"_blank");

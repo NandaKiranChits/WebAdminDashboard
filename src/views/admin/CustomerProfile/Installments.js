@@ -14,7 +14,7 @@ export default view(()=>{
         [
           doc.group_id,
           doc.ticket_no,
-          doc.auction_no,
+          doc.auction_no-1,
           doc.status.toUpperCase(),
           doc.due_date.toDate().toLocaleDateString(),
           doc.installment_value.toLocaleString(),

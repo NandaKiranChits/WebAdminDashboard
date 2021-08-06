@@ -16,7 +16,7 @@ export default view(()=> {
           doc.ticket_no,
           doc.cust_details.name,
           doc.date.toDate().toLocaleDateString(),
-          doc.inst_details.inst_no,
+          doc.inst_details.inst_no-1,
           doc.payment_details.total_paid,
           doc.cust_details.phone,
           doc.payment_details.payment_method,
