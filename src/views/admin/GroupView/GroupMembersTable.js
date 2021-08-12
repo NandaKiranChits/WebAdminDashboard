@@ -15,7 +15,7 @@ export default view(()=>{
           cust.name,
           cust.cust_id,
           cust.phone,
-          cust.status +" "+(cust.prizedInstallment===null?"":cust.prizedInstallment),
+          cust.status +" "+(cust.prizedInstallment===null?"":(cust.prizedInstallment-1)),
           cust.account_balance,
           cust.lean_details.isLean.toString(),
           <DropDownCustom />

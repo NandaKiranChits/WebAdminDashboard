@@ -71,8 +71,12 @@ const groupViewStore = store({
         groupViewStore.groupCustUnsubscribe = ref.onSnapshot((snap)=>{
             groupViewStore.group_members = [];
             snap.forEach((doc)=>{
-                groupViewStore.group_members.push(doc.data());
+                var temp = doc.data();
+                temp["ticket_no"] = parseInt(temp["ticket_no"]);
+                groupViewStore.group_members.push(temp);
             })
+
+            groupViewStore.group_members.sort((a,b)=>(a.ticket_no > b.ticket_no) ? 1 : ((b.ticket_no > a.ticket_no) ? -1 : 0 ));
         },(e)=>{
             console.error(e);
         })
