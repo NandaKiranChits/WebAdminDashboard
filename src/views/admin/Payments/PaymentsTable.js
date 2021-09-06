@@ -18,7 +18,7 @@ export default view(()=>{
           `${doc.date.replaceAll("/","-")} / ${doc.mr_details.mr_date===null?"":doc.mr_details.mr_date.replaceAll("/","-")}`,
           doc.ticket_no,
           doc.cust_details.name,
-          doc.inst_details.inst_no-1,
+          doc.inst_details.inst_no,
           doc.payment_details.total_paid,
           doc.payment_details.payment_method,
           doc.status,
@@ -70,7 +70,7 @@ function printReceipt(receipt_data){
                          `payment_id=${receipt_data["payment_id"]}&` +
                          `payment_method=${receipt_data["payment_details"]["payment_method"]}&` +
                          `payment_date=${receipt_data["date"]}&` +
-                         `inst_no=${receipt_data["inst_details"]["inst_no"]-1}&` + 
+                         `inst_no=${receipt_data["inst_details"]["inst_no"]}&` + 
                          `cust_name=${receipt_data["cust_details"]["name"]}&` +
                          `cust_phone=${receipt_data["cust_details"]["phone"]}&` +
                          `amount=${receipt_data["payment_details"]["total_paid"]}`,"_blank");

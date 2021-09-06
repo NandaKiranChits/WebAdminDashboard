@@ -84,7 +84,7 @@ const addPaymentStore = store({
             },
 
             inst_details :{
-                inst_no : parseInt(addPaymentStore.inst_id)+1,
+                inst_no : parseInt(addPaymentStore.inst_id),
             },
             
             payment_details :{
@@ -189,7 +189,7 @@ const addPaymentStore = store({
         
         for(var i=0;i<addPaymentStore.installment_data.length;i++){
             console.log("Scanning ",addPaymentStore.installment_data[i].auction_no);
-            if((parseInt(id)+1).toString()===addPaymentStore.installment_data[i].auction_no.toString()){
+            if((parseInt(id)).toString()===addPaymentStore.installment_data[i].auction_no.toString()){
                 console.log("Found at index = ",i);
                 addPaymentStore.inst_stats = addPaymentStore.getSelectInstallmentValue(addPaymentStore.installment_data[i]);
                 break;
@@ -202,7 +202,7 @@ const addPaymentStore = store({
 
 
     getSelectInstallmentValue(selected_inst_data){
-            addPaymentStore.inst_id = (selected_inst_data.auction_no-1); // cause it gets called off directly sometimes
+            addPaymentStore.inst_id = (selected_inst_data.auction_no); // cause it gets called off directly sometimes
             var total_without_interest = (
                   (selected_inst_data.installment_value - selected_inst_data.dividend)
                 - (selected_inst_data.total_paid - selected_inst_data.advance_paid) 
