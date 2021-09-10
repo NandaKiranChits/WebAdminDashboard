@@ -206,8 +206,10 @@ const addPaymentStore = store({
             var total_without_interest = (
                   (selected_inst_data.installment_value - selected_inst_data.dividend)
                 - (selected_inst_data.total_paid - selected_inst_data.advance_paid) 
+                + (selected_inst_data.other_charges)
             );
             
+
             var total = total_without_interest + selected_inst_data.interest;
 
             selected_inst_data["total_without_interest"] = total_without_interest;
