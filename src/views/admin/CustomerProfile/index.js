@@ -30,6 +30,15 @@ export default view(()=>{
         }
     })
 
+    const url = window.location.href;
+    const params = (new URL(url)).searchParams;
+
+    const phone = params.get("phone");
+
+    if((phone!==null) || (phone!==undefined)){
+        custProfileStore.getDataUsingCustomerID(phone);
+    }
+
     return (
         <>  
             <div className="relative md:ml-64 bg-blueGray-100">

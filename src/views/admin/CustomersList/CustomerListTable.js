@@ -20,7 +20,7 @@ export default view(()=> {
           cust.phone2,
           cust.email,
           cust.no_of_tickets,
-          <DropDown />
+          <DropDown phone={cust.phone}/>
       ]);
     })
     return (
@@ -43,12 +43,12 @@ export default view(()=> {
   })
 
 
-  function DropDown(){
+  function DropDown({phone}){
     return (
       <CustomDropDownChildWidget 
           dropDownItems={
             [
-              <OnClickWidget name="View" route="/admin/groupView"/>,
+              <OnClickWidget name="View" route={"/admin/customerProfile?phone="+phone}/>,
               <OnClickWidget name="Add Ticket" route="/admin/addNewMemberToGroup"/>
             ] 
           }

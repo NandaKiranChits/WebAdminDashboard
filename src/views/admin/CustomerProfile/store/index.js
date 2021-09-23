@@ -66,6 +66,9 @@ const custProfileStore = store({
         }   
     },
 
+
+    
+
     async getAllData(){
 
         if(isEmpty(custProfileStore.group_id) || isEmpty(custProfileStore.ticket_no)){
@@ -85,12 +88,11 @@ const custProfileStore = store({
                 custProfileStore.isLoading = false;
                 return;
             }
-            if(customerID!==null)custProfileStore.getCustomerData(customerID);
-            custProfileStore.getTicketsData(customerID);
-            custProfileStore.getAuctionData(customerID);
-            custProfileStore.getInstallmentData(customerID);
-            custProfileStore.getPaymentData(customerID);
-            custProfileStore.isLoading = false;
+            if(customerID!==null)
+            {
+                custProfileStore.getDataUsingCustomerID(customerID);
+                custProfileStore.isLoading = false;
+            }
             
         }).catch((err)=>{
             console.error(err);
@@ -98,6 +100,15 @@ const custProfileStore = store({
             custProfileStore.isLoading = false;
         })
         
+    },
+
+
+    getDataUsingCustomerID(customerID){
+        custProfileStore.getCustomerData(customerID);
+        custProfileStore.getTicketsData(customerID);
+        custProfileStore.getAuctionData(customerID);
+        custProfileStore.getInstallmentData(customerID);
+        custProfileStore.getPaymentData(customerID);
     },
 
     getCurrentTicketData(){
