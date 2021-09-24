@@ -29,7 +29,7 @@ export default view(()=>{
               </h6>
               <div className="flex flex-wrap">
                 <GroupFormInput placeholder={"Group ID"} labelName={"Group ID"} type="text" isDisabled={true} value={approveAuctionStore.group_id}/>
-                <GroupFormInput placeholder={"Auction  No."} labelName={"Auction No."} type="text" isDisabled={true} value={approveAuctionStore.auct_no}/>
+                <GroupFormInput placeholder={"Auction  No."} labelName={"Auction No."} type="text" isDisabled={true} value={approveAuctionStore.auct_no-1}/>
                 <GroupFormInput placeholder={"Date And Time"} labelName={"Date and Time"} type="text" isDisabled={true} value={auctionData===null?"":auctionData.date_and_time.toDate().toLocaleDateString()}/>
                 <GroupFormInput placeholder={"Status"} labelName={"Status"} type="text" isDisabled={true} value={auctionData===null?"":auctionData.status}/>
                 <GroupFormInput placeholder={"Chit Value"} labelName={"CHIT Value"} type="text" isDisabled={true} value={auctionData===null?"":auctionData.chit_value} />
