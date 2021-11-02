@@ -51,7 +51,6 @@ function DropDown({receipt_data}){
               onClick={()=>{printReceipt(receipt_data)}}
               >
                 Print
-
               </div>
                 ,
               <OnClickWidget name="View" route="/admin/groupView"/>,
@@ -64,16 +63,8 @@ function DropDown({receipt_data}){
 
 function printReceipt(receipt_data){
   console.log("receipt data = ",receipt_data);
-  window.open(`http://nandakiranchits.com/payments.html?`+
-                         `group_id=${receipt_data["group_id"]}&` +
-                         `ticket_no=${receipt_data["ticket_no"]}&` +
-                         `payment_id=${receipt_data["payment_id"]}&` +
-                         `payment_method=${receipt_data["payment_details"]["payment_method"]}&` +
-                         `payment_date=${receipt_data["date"]}&` +
-                         `inst_no=${receipt_data["inst_details"]["inst_no"]}&` + 
-                         `cust_name=${receipt_data["cust_details"]["name"]}&` +
-                         `cust_phone=${receipt_data["cust_details"]["phone"]}&` +
-                         `amount=${receipt_data["payment_details"]["total_paid"]}`,"_blank");
+
+  window.open(`https://us-central1-chitstorm-d6bd1.cloudfunctions.net/printPaymentReceipt?payment_id=${receipt_data["payment_id"]}`);
 }
   
 
